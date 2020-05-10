@@ -1,0 +1,117 @@
+$body: #ff5741;
+$stroke: #0d1b1e;
+$shadow: #2dc7ff;
+$size: 8rem;
+$halftone: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAHElEQVQYV2NUVFT8f//+fUYGBgYGMAEDcA5IBQCKJQVmn76DhAAAAABJRU5ErkJggg==");
+
+@mixin stroke-width($property) {
+  -webkit-text-stroke-width: $property;
+  -moz-text-stroke-width: $property;
+}
+
+@mixin stroke-color($property) {
+  -webkit-text-stroke-color: $property;
+  -moz-text-stroke-color: $property;
+}
+
+@mixin background-clip($property) {
+  -webkit-background-clip: $property;
+  -moz-background-clip: $property;
+  background-clip: $property;
+}
+
+@mixin fill-color($property) {
+  -webkit-text-fill-color: $property;
+  -moz-text-fill-color: $property;
+}
+
+body {
+  background-color: $body;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: calc(100vh - 20px);
+  text-align: center;
+
+  @media screen and (min-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.circle {
+  position: absolute;
+  background-color: rgb(255, 255, 0);
+  height: 100%;
+  max-width: 600px;
+  width: 100%;
+  // border: 3px solid rgb(255, 255, 0);
+  border-radius: 100%;
+  z-index: -1;
+  transform: rotate(45deg); /* Equal to rotateZ(45deg) */
+}
+
+.heading {
+  font-size: $size;
+  letter-spacing: 6px;
+  margin: 2rem 0;
+  max-width: 750px;
+  line-height: $size;
+
+  &--stroke {
+    @include stroke-width(2px);
+    @include stroke-color($stroke);
+    color: transparent;
+  }
+
+  &--shadow {
+    text-shadow: 6px 6px $shadow;
+
+    &:hover {
+      text-shadow: 6px 6px rgb(60, 57, 255);
+    }
+  }
+
+  // &--stroke-shadow {
+  //   color: $body;
+  //   text-shadow: -2px 0 $stroke, 0 -2px $stroke, 2px 0 $stroke, 0 2px $stroke,
+  //     2px 2px $stroke, -2px -2px $stroke, -2px 2px $stroke, 2px -2px $stroke,
+  //     6px 6px $shadow;
+  // }
+}
+
+.hide {
+  opacity: 0;
+  position: absolute;
+  transition: opacity;
+}
+
+.note {
+  opacity: 0;
+  color: rgb(255, 255, 0);
+  position: absolute;
+
+  font-family: arial;
+  font-weight: normal;
+
+  &.show {
+    position: relative;
+    opacity: 1;
+    transition: opacity 2s;
+  }
+}
+
+.info {
+  padding: 1rem 0;
+
+  @media screen and (min-width: 1000px) {
+    grid-column: 1 / 3;
+  }
+}
